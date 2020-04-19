@@ -1,5 +1,6 @@
 package com.karry.discordbot.covid.service;
 
+import com.karry.discordbot.covid.entity.CountriesResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -31,9 +32,8 @@ public class CoronaService {
         String url="https://covid-193.p.rapidapi.com/countries";
 
         HttpEntity<String>entity=new HttpEntity<String>("parameters",getHeaders());
-        ResponseEntity<String>response=restTemplate.exchange(url, HttpMethod.GET,entity,String.class);
-System.out.println(response.getBody());
-        // https://covid-193.p.rapidapi.com/countries
+        ResponseEntity<CountriesResponse>response=restTemplate.exchange(url, HttpMethod.GET,entity, CountriesResponse.class);
+
     }
 
     private HttpHeaders getHeaders(){
