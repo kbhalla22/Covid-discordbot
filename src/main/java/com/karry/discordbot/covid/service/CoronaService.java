@@ -1,4 +1,4 @@
-package com.karry.discordbot.covid.component.service;
+package com.karry.discordbot.covid.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
