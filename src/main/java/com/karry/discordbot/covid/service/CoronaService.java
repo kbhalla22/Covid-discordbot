@@ -24,15 +24,23 @@ public class CoronaService {
     @Value("${karankey}")
     public String APIKey;
 
+    private CountriesResponse availableCountries;
+
     @PostConstruct
-    public void getAllCountries(){
+    public CountriesResponse getAllCountries(){
+        if(availableCountries==null) {
 
-        RestTemplate restTemplate=new RestTemplate();
+            RestTemplate restTemplate = new RestTemplate();
 
-        String url="https://covid-193.p.rapidapi.com/countries";
+            String url = "https://covid-193.p.rapidapi.com/countries";
 
-        HttpEntity<String>entity=new HttpEntity<String>("parameters",getHeaders());
-        ResponseEntity<CountriesResponse>response=restTemplate.exchange(url, HttpMethod.GET,entity, CountriesResponse.class);
+            HttpEntity<String> entity = new HttpEntity<String>("parameters", getHeaders());
+            ResponseEntity<CountriesResponse> response = restTemplate.exchange(url, HttpMethod.GET, entity, CountriesResponse.class);
+            return response.getBody();
+        }else{
+            return availableCountries;
+        }
+
 
     }
 
