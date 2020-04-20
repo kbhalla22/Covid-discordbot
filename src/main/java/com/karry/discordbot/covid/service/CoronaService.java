@@ -36,13 +36,16 @@ public class CoronaService {
 
             HttpEntity<String> entity = new HttpEntity<String>("parameters", getHeaders());
             ResponseEntity<CountriesResponse> response = restTemplate.exchange(url, HttpMethod.GET, entity, CountriesResponse.class);
-            return response.getBody();
+            availableCountries=response.getBody();
+            return availableCountries;
         }else{
             return availableCountries;
         }
 
 
     }
+
+
 
     private HttpHeaders getHeaders(){
 
