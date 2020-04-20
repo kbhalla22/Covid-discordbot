@@ -9,9 +9,32 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StatisticsResponse {
 
-    Integer results;
+   private  Integer results;
 
-    @JsonProperty("name")
-    List<CountryResponse> responseList;
+    @JsonProperty("response")
+    private List<CountryResponse> responseList;
 
+    public Integer getResults() {
+        return results;
+    }
+
+    public void setResults(Integer results) {
+        this.results = results;
+    }
+
+    public List<CountryResponse> getResponseList() {
+        return responseList;
+    }
+
+    @Override
+    public String toString() {
+        return "StatisticsResponse{" +
+                "results=" + results +
+                ", responseList=" + responseList +
+                '}';
+    }
+
+    public void setResponseList(List<CountryResponse> responseList) {
+        this.responseList = responseList;
+    }
 }
