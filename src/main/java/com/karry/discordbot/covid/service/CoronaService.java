@@ -1,6 +1,7 @@
 package com.karry.discordbot.covid.service;
 
 import com.karry.discordbot.covid.entity.CountriesResponse;
+import com.karry.discordbot.covid.entity.StatisticsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
+import java.util.Optional;
 
 
 @Service
@@ -45,6 +47,19 @@ public class CoronaService {
 
     }
 
+    public void getStatistics(String countryName){
+        Optional<String>validatedCountry=getAllCountries().getResponse().stream().filter(countryBank->countryBank.equals(countryName)).findFirst();
+        if(validatedCountry.isPresent()){
+            System.out.println(validatedCountry.get() + "country selected");
+            RestTemplate restTemplate = new RestTemplate();
+
+            String url = "https://covid-193.p.rapidapi.com/statistics?country={country}";
+
+            HttpEntity<String> entity = new HttpEntity<String>("parameters", getHeaders());
+            ResponseEntity<StatisticsResponse> response = restTemplate.exchange(url, HttpMethod.GET, entity, StatisticsResponse.class,validatedCountry.get());
+            System.out.println(response.getBody().toString());
+        }
+    }
 
 
     private HttpHeaders getHeaders(){
